@@ -20,11 +20,7 @@ fn get_common_domains(filename: &str) -> Vec<String> {
     for line in read_to_string(filename).unwrap().lines() {
         let line_string = line.to_string();
 
-        let parts = line_string.split(",");
-
-        let collection: Vec<&str> = parts.collect();
-
-        result.push(collection[1].to_string());
+        result.push(line_string);
     }
 
     result
