@@ -54,7 +54,7 @@ print(df)
 
 ### Output
 
-If `top-1m.csv` contains `google.com`, the output will look like this:
+If `cloudflare-radar_top-1000000-domains.csv` contains `google.com`, the output will look like this:
 
 ```
 shape: (3, 2)
