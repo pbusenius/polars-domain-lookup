@@ -8,3 +8,6 @@ venv
 *.pyd
 
 *.csv
+
+.env
+
