@@ -15,7 +15,7 @@ This plugin extends the functionality of [Polars](https://www.pola.rs) by provid
 Install Polars with:
 
 ```bash
-yuv add polars
+uv add polars
 ```
 
 - Top 1 Million Domains List: The domain list must be provided as a file (e.g., `cloudflare-radar_top-1000000-domains.csv`) in CSV format. This file can be downloaded from sources like [Cloudflare Radar](https://radar.cloudflare.com/domains).
