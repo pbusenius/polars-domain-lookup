@@ -1,15 +1,31 @@
 #![allow(clippy::unused_unit)]
 use polars::prelude::*;
 use pyo3_polars::derive::polars_expr;
-use std::fmt::Write;
+use std::fs::read_to_string;
 
-#[polars_expr(output_type=String)]
-fn pig_latinnify(inputs: &[Series]) -> PolarsResult<Series> {
+#[polars_expr(output_type=Boolean)]
+fn is_common_domain(inputs: &[Series]) -> PolarsResult<Series> {
+    let cisco_umbrella: Vec<String> = get_common_domains("cloudflare-radar_top-1000000-domains.csv");
+
     let ca: &StringChunked = inputs[0].str()?;
-    let out: StringChunked = ca.apply_into_string_amortized(|value: &str, output: &mut String| {
-        if let Some(first_char) = value.chars().next() {
-            write!(output, "{}{}ay", &value[1..], first_char).unwrap()
-        }
-    });
+    let out: BooleanChunked = ca.apply_nonnull_values_generic(
+        DataType::Boolean, |x| cisco_umbrella.contains(&x.to_string())
+    );
     Ok(out.into_series())
+}
+
+fn get_common_domains(filename: &str) -> Vec<String> {
+    let mut result = Vec::new();
+
+    for line in read_to_string(filename).unwrap().lines() {
+        let line_string = line.to_string();
+
+        let parts = line_string.split(",");
+
+        let collection: Vec<&str> = parts.collect();
+
+        result.push(collection[1].to_string());
+    }
+
+    result
 }
