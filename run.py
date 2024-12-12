@@ -1,11 +1,12 @@
 import polars as pl
-from polars_domain_lookup import pig_latinnify
+from polars_domain_lookup import is_common_domain
 
 
 df = pl.DataFrame(
     {
-        "english": ["this", "is", "not", "pig", "latin"],
+        "dns": ["github.com", "google.de", "blub.com", "heise.de"],
     }
 )
-result = df.with_columns(pig_latin=pig_latinnify("english"))
+
+result = df.with_columns(is_common_domain=is_common_domain("dns"))
 print(result)
