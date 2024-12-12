@@ -77,14 +77,3 @@ shape: (3, 2)
 - **Return Value:**
   - A Polars column (pl.Series) with boolean values indicating whether each domain is in the list.
 
-## Format of `cloudflare-radar_top-1000000-domains.csv`
-
-The file should have the following format:
-
-```
-domain
-google.com
-youtube.com
-...
-example.com
-```
