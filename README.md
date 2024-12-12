@@ -67,13 +67,3 @@ shape: (3, 2)
 └───────────────────────┴───────────────┘
 ```
 
-## Plugin Functions
-
-### `is_common_domains(column: pl.Series) -> pl.Series`
-
-- **Parameters:**
-  - `column` (pl.Series): The Polars column to check.
-
-- **Return Value:**
-  - A Polars column (pl.Series) with boolean values indicating whether each domain is in the list.
-
