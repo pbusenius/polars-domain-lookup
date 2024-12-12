@@ -1,12 +1,17 @@
 import polars as pl
 from polars_domain_lookup import is_common_domain
 
+# Example DataFrame with domains
+df = pl.DataFrame({
+    "domains": ["example.com", "google.com", "nonexistentdomain.xyz"]
+})
 
-df = pl.DataFrame(
-    {
-        "domain": ["github.com", "google.de", "blub.com", "heise.de"],
-    }
+# Load the top 1,000,000 domains list
+top_domains_path = "cloudflare-radar_top-1000000-domains.csv"
+
+# Perform the lookup
+df = df.with_columns(
+    is_common_domain(df["domains"]).alias("is_common_domain")
 )
 
-result = df.with_columns(is_common_domain=is_common_domain("domain"))
-print(result)
+print(df)
