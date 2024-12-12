@@ -14,11 +14,11 @@ if TYPE_CHECKING:
 LIB = Path(__file__).parent
 
 
-def pig_latinnify(expr: IntoExprColumn) -> pl.Expr:
+def is_common_domain(expr: IntoExprColumn) -> pl.Expr:
     return register_plugin_function(
         args=[expr],
         plugin_path=LIB,
-        function_name="pig_latinnify",
+        function_name="is_common_domain",
         is_elementwise=True,
     )
 
