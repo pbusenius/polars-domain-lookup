@@ -11,7 +11,7 @@ top_domains_path = "cloudflare-radar_top-1000000-domains.csv"
 
 # Perform the lookup
 df = df.with_columns(
-    is_common_domain(df["domains"]).alias("is_common_domain")
+    is_common_domain(df["domains"], top_domains_file="cloudflare-radar_top-1000000-domains.csv").alias("is_common_domain")
 )
 
 print(df)
