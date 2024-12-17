@@ -14,11 +14,12 @@ if TYPE_CHECKING:
 LIB = Path(__file__).parent
 
 
-def is_common_domain(expr: IntoExprColumn) -> pl.Expr:
+def is_common_domain(expr: IntoExprColumn, top_domains_file: str) -> pl.Expr:
     return register_plugin_function(
         args=[expr],
         plugin_path=LIB,
         function_name="is_common_domain",
         is_elementwise=True,
+        kwargs={"top_domains_file": top_domains_file},
     )
 

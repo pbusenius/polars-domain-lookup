@@ -1,11 +1,17 @@
 #![allow(clippy::unused_unit)]
+use serde::Deserialize;
 use polars::prelude::*;
 use pyo3_polars::derive::polars_expr;
 use std::fs::read_to_string;
 
+#[derive(Deserialize)]
+struct TopDomainsFileKwargs {
+    top_domains_file: String,
+}
+
 #[polars_expr(output_type=Boolean)]
-fn is_common_domain(inputs: &[Series]) -> PolarsResult<Series> {
-    let cisco_umbrella: Vec<String> = get_common_domains("cloudflare-radar_top-1000000-domains.csv");
+fn is_common_domain(inputs: &[Series], kwargs: TopDomainsFileKwargs) -> PolarsResult<Series> {
+    let cisco_umbrella: Vec<String> = get_common_domains(&kwargs.top_domains_file);
 
     let ca: &StringChunked = inputs[0].str()?;
     let out: BooleanChunked = ca.apply_nonnull_values_generic(
