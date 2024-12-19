@@ -41,12 +41,9 @@ df = pl.DataFrame({
     "domains": ["example.com", "google.com", "nonexistentdomain.xyz"]
 })
 
-# Load the top 1,000,000 domains list
-top_domains_path = "cloudflare-radar_top-1000000-domains.csv"
-
 # Perform the lookup
 df = df.with_columns(
-    is_common_domain(df["domains"]).alias("is_top_domain")
+    is_common_domain(df["domains"], top_domains_file="cloudflare-radar_top-1000000-domains.csv").alias("is_common_domain")
 )
 
 print(df)
